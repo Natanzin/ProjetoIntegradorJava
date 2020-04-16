@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:f="http://java.sun.com/jsf/core"
@@ -8,19 +8,19 @@ xmlns:p="http://primefaces.org/ui"
 xmlns:ui="http://java.sun.com/jsf/facelets"
 
 >
-<head>
+<h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Modelo Sistema</title>
-</head>
-<body>
-<p:layout style="min-width:400px;min-height:200px;">
-    <p:layoutUnit position="west" resizable="true" size="100" minSize="40" maxSize="200">
-        West
+</h:head>
+<h:body>
+<p:layout fullpage="true">
+    <p:layoutUnit position="north">
+        <ui:insert name="menu" />
     </p:layoutUnit>
  
     <p:layoutUnit position="center">
-        Center
+        <ui:insert name="conteudo" />
     </p:layoutUnit>
 </p:layout>
-</body>
+</h:body>
 </html>
