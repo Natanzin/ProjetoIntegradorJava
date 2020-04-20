@@ -127,11 +127,11 @@ public class FornecedoresDAO {
 	}
 
 	public static void main(String[] args) {
-		/*Fornecedores f1 = new Fornecedores();
-		f1.setDescricao("descricao corno");
+		Fornecedores f1 = new Fornecedores();
+		f1.setDescricao("Gabriel");
 
 		Fornecedores f2 = new Fornecedores();
-		f2.setDescricao("descricao viado");
+		f2.setDescricao("Guilherme ");
 
 		FornecedoresDAO fdao = new FornecedoresDAO();
 		try {
@@ -141,7 +141,7 @@ public class FornecedoresDAO {
 		} catch (SQLException e) {
 			System.out.println("erro ao salvar");
 			e.printStackTrace();
-		} */
+		} 
 		
 		/* Fornecedores f1 = new Fornecedores();
 		f1.setId(2);
@@ -187,7 +187,7 @@ public class FornecedoresDAO {
 		} catch (SQLException e) {
 			System.out.println("erro ao buscar");
 			e.printStackTrace();
-		} */
+		} */ 
 		
 		
 		
@@ -206,7 +206,7 @@ public class FornecedoresDAO {
 		} */
 		
 		//Método buscar por descrição
-		Fornecedores f1 = new Fornecedores();
+		/*Fornecedores f1 = new Fornecedores();
 		f1.setDescricao("cor");
 		
 		FornecedoresDAO fdao = new FornecedoresDAO();
@@ -220,7 +220,7 @@ public class FornecedoresDAO {
 		} catch (SQLException e) {
 			System.out.println("erro ao buscar");
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 }
