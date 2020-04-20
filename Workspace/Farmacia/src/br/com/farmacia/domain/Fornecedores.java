@@ -20,6 +20,11 @@ public class Fornecedores {
 		this.descricao = descricao;
 	}
 	
+	@Override
+	public String toString() {
+		String saida = id + " - " + descricao;
+		return saida;
+	}
 	
 
 }
