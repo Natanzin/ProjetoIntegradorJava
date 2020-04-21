@@ -142,7 +142,6 @@ public class FornecedoresDAO {
 			System.out.println("erro ao salvar");
 			e.printStackTrace();
 		} 
-		
 		/* Fornecedores f1 = new Fornecedores();
 		f1.setId(2);
 		
