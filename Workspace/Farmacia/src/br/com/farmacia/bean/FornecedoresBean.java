@@ -10,6 +10,7 @@ import javax.faces.model.ListDataModel;
 
 import br.com.farmacia.DAO.FornecedoresDAO;
 import br.com.farmacia.domain.Fornecedores;
+import br.com.farmacia.util.JSFUtil;
 
 @ManagedBean(name = "MBFornecedores")
 @ViewScoped
@@ -43,6 +44,7 @@ public class FornecedoresBean {
 			ArrayList<Fornecedores> lista = fdao.listar();
 			itens = new ListDataModel<Fornecedores>(lista);
 		} catch (SQLException e) {
+			JSFUtil.adicionarMensagemErro("ex.getMessage()");
 			e.printStackTrace();
 		}
 	}
@@ -54,8 +56,50 @@ public class FornecedoresBean {
 		try {
 			FornecedoresDAO fdao = new FornecedoresDAO();
 			fdao.salvar(fornecedores);
-		} catch (SQLException e) {
+
+			ArrayList<Fornecedores>lista = fdao.listar();
+			itens = new ListDataModel<Fornecedores>(lista);
 			
+			JSFUtil.adicionarMensagemSucesso("Fornecedor salvo com sucesso!");
+		} catch (SQLException e) {
+			JSFUtil.adicionarMensagemErro("ex.getMessage()");
+			e.printStackTrace();
+		}
+	}
+	
+	public void prepararExcluir() {
+		fornecedores = itens.getRowData();
+	}
+	
+	public void excluir() {
+		try {
+			FornecedoresDAO fdao = new FornecedoresDAO();
+			fdao.excluir(fornecedores);
+
+			ArrayList<Fornecedores>lista = fdao.listar();
+			itens = new ListDataModel<Fornecedores>(lista);
+			
+			JSFUtil.adicionarMensagemSucesso("Fornecedor deletado com sucesso!");
+		} catch (SQLException e) {
+			JSFUtil.adicionarMensagemErro("Não é possível excluir um fornecedor que tem um produto associado!");
+			e.printStackTrace();
+		}
+	}
+	public void prepararEditar() {
+		fornecedores = itens.getRowData();
+	}
+	
+	public void editar() {
+		try {
+			FornecedoresDAO fdao = new FornecedoresDAO();
+			fdao.editar(fornecedores);
+			
+			ArrayList<Fornecedores>lista = fdao.listar();
+			itens = new ListDataModel<Fornecedores>(lista);
+			
+			JSFUtil.adicionarMensagemSucesso("Fornecedor editado com sucesso!");
+		} catch (SQLException e) {
+			JSFUtil.adicionarMensagemErro("ex.getMessage()");
 			e.printStackTrace();
 		}
 	}
