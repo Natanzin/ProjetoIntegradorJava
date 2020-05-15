@@ -15,8 +15,15 @@
 	<ui:define name="conteudo">
 
 		<h:form id="frmfornecedores">
-			<p:dataTable id="tbfornecedores" emptyMessage="Nenhum registro encontrado!"
-				value="#{MBFornecedores.itens}" var="item" paginator="true" rows="9">
+			<p:dataTable 
+			id="tbfornecedores"
+			widgetVar="tabelaFornecedores" 
+			emptyMessage="Nenhum registro encontrado!"
+			value="#{MBFornecedores.itens}" 
+			var="item" 
+			filteredValue="#{MBFornecedores.itensFiltrados}" 
+			paginator="true" 
+			rows="9">
 
 				<f:facet name="header">Lista de Fornecedores</f:facet>
 
@@ -30,8 +37,12 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash" actionListener="#{MBFornecedores.prepararExcluir}" oncomplete="PF('dlgforExcluir').show();" update=":frmforExcluir:pnforExcluir" />
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{MBFornecedores.prepararEditar}" oncomplete="PF('dlgforEditar').show();" update=":frmforEditar:pnforEditar" />
+					<p:commandButton icon="ui-icon-trash" oncomplete="PF('dlgforExcluir').show();" update=":frmforExcluir:pnforExcluir" >
+						<f:setPropertyActionListener value="#{item}" target="#{MBFornecedores.fornecedores}"></f:setPropertyActionListener>
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgforEditar').show();" update=":frmforEditar:pnforEditar" >
+						<f:setPropertyActionListener value="#{item}" target="#{MBFornecedores.fornecedores}"></f:setPropertyActionListener>
+					</p:commandButton>
 				</p:column>
 
 				<f:facet name="footer">
@@ -54,7 +65,7 @@
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar" actionListener="#{MBFornecedores.novo}" 
-					oncomplete="PF('dlgforNovo').hide();" update=":frmfornecedores:tbfornecedores :msgGlobal" />
+					oncomplete="PF('dlgforNovo').hide(); PF('tabelaFornecedores').clearFilters();" update=":frmfornecedores:tbfornecedores :msgGlobal" />
 					<p:commandButton value="Cancelar" onclick="PF('dlgforNovo').hide();" />
 				</h:panelGrid>
 			</h:form>
@@ -77,7 +88,7 @@
 			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Excluir" actionListener="#{MBFornecedores.excluir}"
-				oncomplete="PF('dlgforExcluir').hide();" update=":frmfornecedores:tbfornecedores :msgGlobal" />
+				oncomplete="PF('dlgforExcluir').hide(); PF('tabelaFornecedores').clearFilters();" update=":frmfornecedores:tbfornecedores :msgGlobal" />
 				<p:commandButton value="Cancelar" onclick="PF('dlgforExcluir').hide();" />
 			</h:panelGrid>
 		</h:form>
@@ -100,7 +111,7 @@
 			
 			<h:panelGrid columns="2">
 				<p:commandButton value="Editar" actionListener="#{MBFornecedores.editar}"
-				oncomplete="PF('dlgforEditar').hide();" update=":frmfornecedores:tbfornecedores :msgGlobal" />
+				oncomplete="PF('dlgforEditar').hide(); PF('tabelaFornecedores').clearFilters();" update=":frmfornecedores:tbfornecedores :msgGlobal" />
 				<p:commandButton value="Cancelar" onclick="PF('dlgforEditar').hide();" />
 			</h:panelGrid>
 		</h:form>
