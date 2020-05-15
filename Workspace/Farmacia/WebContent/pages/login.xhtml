@@ -17,15 +17,15 @@
                 <p:panelGrid id="grid" style="width: 100%">
                     <p:row>
                         <p:column><p:outputLabel value="Usuário:" for="usuario"/></p:column>
-                        <p:column><p:inputText id="usuario" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Usuário: Campo obrigatório!" style="width: 100%"/></p:column>
+                        <p:column><p:inputText id="usuario" value="#{usuariosBean.usuario.nome}" required="true" requiredMessage="Usuário: Campo obrigatório!" style="width: 100%"/></p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="Senha:" for="senha"/></p:column>
-                        <p:column><p:password id="senha" value="#{usuarioBean.usuario.senha}" required="true" requiredMessage="Senha: Campo obrigatório!" style="width: 100%"/></p:column>
+                        <p:column><p:password id="senha" value="#{usuariosBean.usuario.senha}" required="true" requiredMessage="Senha: Campo obrigatório!" style="width: 100%"/></p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="3">
-                            <p:commandButton value="Entrar" action="#{usuarioBean.entrar}" style="width: 100%" update="grid" ajax="true" validateClient="true"/>
+                            <p:commandButton value="Entrar" action="#{usuariosBean.entrar}" style="width: 100%" update="grid" ajax="true" validateClient="true"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>

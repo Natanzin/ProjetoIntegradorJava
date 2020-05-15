@@ -5,7 +5,7 @@ import javax.faces.bean.SessionScoped;
 import br.com.farmacia.domain.Usuario;
 
 
-@ManagedBean(name = "usuarioBean")
+@ManagedBean(name = "usuariosBean")
 @SessionScoped
 public class UsuariosBean  {
 	

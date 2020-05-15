@@ -4,6 +4,7 @@ import br.com.farmacia.bean.UsuariosBean;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -22,7 +23,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest requisicao = (HttpServletRequest) request;
         HttpServletResponse resposta = (HttpServletResponse) response;
         HttpSession sessao = requisicao.getSession();
-        UsuarioBean usuarioBean = (UsuarioBean) sessao.getAttribute("usuarioBean");
+        UsuariosBean usuarioBean = (UsuariosBean) sessao.getAttribute("usuariosBean");
         String uriLogin = requisicao.getContextPath() + "/login.xhtml";
 
         if (usuarioBean != null && usuarioBean.isAutenticado()) {
@@ -31,5 +32,17 @@ public class LoginFilter implements Filter {
             resposta.sendRedirect(uriLogin);
         }
     }
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
