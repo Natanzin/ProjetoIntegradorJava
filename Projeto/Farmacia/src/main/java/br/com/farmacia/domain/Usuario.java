@@ -26,8 +26,8 @@ public class Usuario extends GenericDomain {
 
     @Getter
     @Setter
-    @OneToOne
-    @JoinColumn(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     private Pessoa pessoa = new Pessoa();
 
     public Usuario() {

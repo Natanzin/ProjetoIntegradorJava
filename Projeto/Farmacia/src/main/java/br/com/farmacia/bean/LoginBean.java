@@ -44,7 +44,10 @@ public class LoginBean {
     }
 
     public String envia() {
+        // throw - CPF inexistente no sistema.
         usuario.setPessoa(pessoaDAO.buscarPorCPF(cpf));
+
+        // throw - Senha inválida;
         usuario = usuarioDAO.autenticar(usuario.getPessoa().getCpf(), usuario.getSenha());
         if (usuario == null) {
             usuario = new Usuario();
