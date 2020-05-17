@@ -10,7 +10,6 @@ import org.omnifaces.util.Messages;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.Column;
 
 @ManagedBean(name = "MBLogin")
 @ViewScoped
@@ -37,28 +36,30 @@ public class LoginBean {
     private PessoaDAO pessoaDAO;
 
     @PostConstruct
-    public void telaInicial(){
+    public void telaInicial() {
         usuario = new Usuario();
         pessoaDAO = new PessoaDAO();
         usuarioDAO = new UsuarioDAO();
     }
 
-    public String envia() {
-        // throw - CPF inexistente no sistema.
-        usuario.setPessoa(pessoaDAO.buscarPorCPF(cpf));
+    public String envia() throws Exception {
+        try {
+            usuario.setPessoa(pessoaDAO.buscarPorCPF(cpf));
+            usuario = usuarioDAO.autenticar(usuario.getPessoa().getCpf(), usuario.getSenha());
 
-        // throw - Senha inválida;
-        usuario = usuarioDAO.autenticar(usuario.getPessoa().getCpf(), usuario.getSenha());
-        if (usuario == null) {
-            usuario = new Usuario();
-            Messages.addGlobalError("Não foi possível realizar o login no sistema.");
-            return null;
-        } else {
-            Messages.addGlobalInfo("Seja bem vindo.");
-            return "/index.xhtml";
+            if (usuario == null) {
+                usuario = new Usuario();
+                throw new Exception();
+            } else {
+                Messages.addGlobalInfo("Seja bem vindo.");
+                return "/index.xhtml";
+            }
+
+        } catch (Exception ex) {
+            Messages.addGlobalError("Usuário ou senha incorretos.");
         }
 
-
+        return "/login.xhtml";
     }
 
 }
