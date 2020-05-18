@@ -3,16 +3,18 @@ package br.com.farmacia.bean;
 import br.com.farmacia.dao.PessoaDAO;
 import br.com.farmacia.dao.UsuarioDAO;
 import br.com.farmacia.domain.Usuario;
+import br.com.farmacia.util.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.omnifaces.util.Messages;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import java.util.logging.Logger;
 
 @ManagedBean(name = "MBLogin")
-@ViewScoped
+@SessionScoped
 public class LoginBean {
 
     @Getter
@@ -35,6 +37,8 @@ public class LoginBean {
     @Setter
     private PessoaDAO pessoaDAO;
 
+    private static Logger logger = Logger.getLogger(String.valueOf(LoginBean.class));
+
     @PostConstruct
     public void telaInicial() {
         usuario = new Usuario();
@@ -42,7 +46,7 @@ public class LoginBean {
         usuarioDAO = new UsuarioDAO();
     }
 
-    public String envia() throws Exception {
+    public String doLogin() throws Exception {
         try {
             usuario.setPessoa(pessoaDAO.buscarPorCPF(cpf));
             usuario = usuarioDAO.autenticar(usuario.getPessoa().getCpf(), usuario.getSenha());
@@ -51,15 +55,34 @@ public class LoginBean {
                 usuario = new Usuario();
                 throw new Exception();
             } else {
-                Messages.addGlobalInfo("Seja bem vindo.");
-                return "/index.xhtml";
+                logger.info("Login efetuado com sucesso");
+                SessionUtils.getInstance().setAttribute("usuarioLogado", usuario);
+                return "/pages/index.xhtml?faces-redirect=true";
             }
 
         } catch (Exception ex) {
+            this.cpf = "";
+            this.senha = "";
             Messages.addGlobalError("Usuário ou senha incorretos.");
         }
 
-        return "/login.xhtml";
+        return "/acesso/login.xhtml?faces-redirect=true";
+    }
+
+
+    public Usuario getUsuarioLogado() {
+        return (Usuario) SessionUtils.getInstance().getUsuarioLogado();
+    }
+
+    public String doLogout() throws Exception {
+        logger.info("Fazendo logout com usuário ");
+        SessionUtils.getInstance().encerrarSessao();
+        return "/acesso/login.xhtml?faces-redirect=true";
+    }
+
+    public boolean isUsuarioAdm() {
+        return SessionUtils.getInstance().getUsuarioLogado().getTipoFormatado().equals("Administrador");
     }
 
 }
+

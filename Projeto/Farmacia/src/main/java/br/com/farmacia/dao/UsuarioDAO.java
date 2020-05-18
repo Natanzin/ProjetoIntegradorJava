@@ -11,7 +11,6 @@ import org.hibernate.criterion.Restrictions;
 
 public class UsuarioDAO extends GenericDAO<Usuario> {
 
-    @SuppressWarnings("unchecked")
     public Usuario autenticar(String login, String senha) {
         Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
         try {

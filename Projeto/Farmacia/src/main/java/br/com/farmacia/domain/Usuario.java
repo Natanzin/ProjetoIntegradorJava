@@ -26,7 +26,7 @@ public class Usuario extends GenericDomain {
 
     @Getter
     @Setter
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @MapsId
     private Pessoa pessoa = new Pessoa();
 
