@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/modelo.Sistema.xhtml">
+
+
+    <ui:define name="menu">
+        <ui:include src="/includes/menu.xhtml"/>
+    </ui:define>
+
+    <ui:define name="conteudo">
+
+        <h:form id="frmUsuarios">
+            <p:dataTable id="tbUsuarios" emptyMessage="Nenhum registro encontrado!"
+                         value="#{MBUsuarios.usuarios}" var="item" paginator="true" rows="9">
+
+                <f:facet name="header">Lista de Usuários</f:facet>
+
+                <p:column headerText="Nome" sortBy="#{item.pessoa.nome}" filterBy="#{item.pessoa.nome}">
+                    <h:outputText value="#{item.pessoa.nome}"/>
+                </p:column>
+
+                <p:column headerText="CPF" sortBy="#{item.pessoa.cpf}" filterBy="#{item.pessoa.cpf}">
+                    <h:outputText value="#{item.pessoa.cpf}"/>
+                </p:column>
+
+                <p:column headerText="Tipo" sortBy="#{item.tipoFormatado}" filterBy="#{item.tipoFormatado}">
+                    <h:outputText value="#{item.tipoFormatado}"/>
+                </p:column>
+
+                <p:column headerText="Ativo" sortBy="#{item.ativoFormatado}" filterBy="#{item.ativoFormatado}">
+                    <h:outputText value="#{item.ativoFormatado}"/>
+                </p:column>
+
+                <p:column headerText="Opções">
+
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{MBUsuarios.excluir}" update=":msgGlobal :frmUsuarios:tbUsuarios">
+                        <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert"/>
+                        <f:attribute name="usuarioSelecionado" value="#{item}"/>
+                    </p:commandButton>
+
+                    <p:commandButton
+                            icon="ui-icon-pencil"
+                            actionListener="#{MBUsuarios.editar}"
+                            update=":frmforNovo:painel"
+                            oncomplete="PF('dlgforNovo').show();">
+                        <f:attribute name="usuarioSelecionado" value="#{item}"/>
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+                    </p:commandButton>
+
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Novo" actionListener="#{MBUsuarios.novo}" oncomplete="PF('dlgforNovo').show();"
+                                     update=":frmforNovo:painel"/>
+                </f:facet>
+
+            </p:dataTable>
+            <p:confirmDialog global="true" appendTo="@(body)">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <p:dialog widgetVar="dlgforNovo" closable="false" draggable="false"
+                  resizable="false"
+                  header="Formulário - Usuários"
+                  modal="true"
+                  appendTo="@(body)">
+
+            <h:form id="frmforNovo">
+                <h:panelGrid id="painel" columns="2">
+
+                    <p:outputLabel for="pessoa" value="Pessoa:"/>
+                    <p:selectOneMenu id="pessoa" filter="true" value="#{MBUsuarios.usuario.pessoa}" required="true"
+                                     requiredMessage="O campo 'Pessoa' é obrigatório"
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma pessoa"/>
+                        <f:selectItems value="#{MBUsuarios.pessoas}" var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.cpf}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="senha" value="Senha:"/>
+                    <p:password id="senha" maxlength="8" size="10" value="#{MBUsuarios.usuario.senha}" required="true"
+                                requiredMessage="O campo 'Senha' é obrigatório"
+                                validatorMessage="Informe uma senha de 6 a 8 caracteres">
+                        <f:validateLength minimum="6" maximum="8"/>
+                    </p:password>
+
+                    <p:outputLabel for="tipo" value="Tipo:"/>
+                    <p:selectOneRadio id="tipo" value="#{MBUsuarios.usuario.tipo}" required="true" requiredMessage="O campo 'Tipo' ´obrigatório">
+                        <f:selectItem itemValue="A" itemLabel="Administrador"/>
+                        <f:selectItem itemValue="B" itemLabel="Balconista"/>
+                    </p:selectOneRadio>
+
+                    <p:outputLabel for="ativo" value="Ativo:"/>
+                    <p:selectBooleanCheckbox id="ativo" value="#{MBUsuarios.usuario.ativo}" required="true" requiredMessage="O campo 'Ativo' é obrigatório"/>
+
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Salvar" actionListener="#{MBUsuarios.salvar}"
+                                         oncomplete="PF('dlgforNovo').hide();" update=":msgGlobal :frmforNovo:painel :frmUsuarios:tbUsuarios"/>
+
+                        <p:commandButton value="Cancelar" onclick="PF('dlgforNovo').hide();"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
