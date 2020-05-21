@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 public class PessoaDAO extends GenericDAO<Pessoa> {
-    //@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public Pessoa buscarPorCPF(String cpf) {
         Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
         try {
