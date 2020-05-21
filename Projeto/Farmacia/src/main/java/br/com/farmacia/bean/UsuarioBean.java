@@ -56,6 +56,8 @@ public class UsuarioBean implements Serializable {
 
     public void editar(ActionEvent evento) {
         usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuario = usuarioDAO.buscar(usuario.getPessoa().getId());
     }
 
     public void salvar() {

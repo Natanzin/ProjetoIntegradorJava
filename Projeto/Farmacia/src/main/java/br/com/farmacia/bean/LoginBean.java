@@ -2,6 +2,7 @@ package br.com.farmacia.bean;
 
 import br.com.farmacia.dao.PessoaDAO;
 import br.com.farmacia.dao.UsuarioDAO;
+import br.com.farmacia.domain.Pessoa;
 import br.com.farmacia.domain.Usuario;
 import br.com.farmacia.util.SessionUtils;
 import lombok.Getter;
@@ -48,11 +49,12 @@ public class LoginBean {
 
     public String doLogin() throws Exception {
         try {
-            usuario.setPessoa(pessoaDAO.buscarPorCPF(cpf));
-            usuario = usuarioDAO.autenticar(usuario.getPessoa().getCpf(), usuario.getSenha());
-
-            if (usuario == null) {
-                usuario = new Usuario();
+        	Pessoa pessoa = new Pessoa();
+        	pessoa = pessoaDAO.buscarPorCPF(cpf);
+            if(pessoa.getId()==null)
+            	throw new Exception();
+            usuario = usuarioDAO.autenticar(pessoa.getCpf(), usuario.getSenha());
+            if (usuario.getId() == null) {
                 throw new Exception();
             } else {
                 logger.info("Login efetuado com sucesso");
@@ -66,7 +68,7 @@ public class LoginBean {
             Messages.addGlobalError("Usuário ou senha incorretos.");
         }
 
-        return "/acesso/login.xhtml?faces-redirect=true";
+        return "/acesso/login.xhtml";
     }
 
 

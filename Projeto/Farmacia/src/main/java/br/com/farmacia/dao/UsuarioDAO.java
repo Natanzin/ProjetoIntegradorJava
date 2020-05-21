@@ -19,7 +19,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
             consulta.createAlias("pessoa","p");
             consulta.add(Restrictions.eq("p.cpf", login));
             consulta.add(Restrictions.eq("u.senha", senha));
-            consulta.add(Restrictions.eq("u.ativo", true));
+            consulta.add(Restrictions.eq("u.ativo", Boolean.TRUE));
             return (Usuario) consulta.uniqueResult();
         } catch (HibernateException erro) {
             throw erro;
