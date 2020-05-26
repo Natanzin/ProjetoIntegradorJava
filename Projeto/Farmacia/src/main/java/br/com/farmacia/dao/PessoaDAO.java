@@ -2,13 +2,14 @@ package br.com.farmacia.dao;
 
 
 import br.com.farmacia.domain.Pessoa;
+
 import br.com.farmacia.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 public class PessoaDAO extends GenericDAO<Pessoa> {
-    @SuppressWarnings("unchecked")
+  // @SuppressWarnings("unchecked")
     public Pessoa buscarPorCPF(String cpf) {
         Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
         try {

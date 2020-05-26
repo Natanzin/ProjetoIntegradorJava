@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @SuppressWarnings("serial")
 @Entity
@@ -20,7 +20,7 @@ public class Produto extends GenericDomain {
     @Getter
     @Setter
     @Column
-    private int quantidade;
+    private Integer quantidade;
 
     @Getter
     @Setter
@@ -29,15 +29,17 @@ public class Produto extends GenericDomain {
 
     @Getter
     @Setter
-    @OneToOne
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Fornecedor fornecedor;
 
     public Produto() {
+    	super();
     }
 
     public Produto(Long id, String descricao, int quantidade, Double preco, Fornecedor fornecedor) {
-        setId(id);
+        super();
+    	setId(id);
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.preco = preco;

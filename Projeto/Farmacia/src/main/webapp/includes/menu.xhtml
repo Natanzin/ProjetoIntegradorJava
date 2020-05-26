@@ -9,8 +9,6 @@
     <h:form>
         <p:menubar>
             <p:submenu label="Arquivo">
-                <p:menuitem value="Empresa" url="#"/>
-                <p:menuitem value="Site" url="#"/>
                 <p:menuitem value="Sair" action="#{MBLogin.doLogout}"/>
             </p:submenu>
 
@@ -24,14 +22,9 @@
                 <p:menuitem value="Usuários do Sistema" outcome="/pages/usuarios.xhtml"/>
             </p:submenu>
 
-            <p:submenu label="Ajuda">
-                <p:menuitem value="Sobre" url="#"/>
-            </p:submenu>
-
             <p:submenu containerStyle="float:right;" style="float:right"  label="#{MBLogin.usuarioLogado.pessoa.nome} (#{MBLogin.usuarioLogado.tipoFormatado})">
                 <p:menuitem value="Sair" action="#{MBLogin.doLogout}"/>
             </p:submenu>
-
         </p:menubar>
     </h:form>
 
