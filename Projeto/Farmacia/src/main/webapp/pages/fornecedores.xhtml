@@ -12,7 +12,7 @@
         <ui:include src="/includes/menu.xhtml"/>
     </ui:define>
 
-    <ui:define name="conteudo">
+    <ui:define name="conteudo" id="conteudo">
 
         <h:form id="frmfornecedores">
             <p:dataTable id="tbfornecedores" emptyMessage="Nenhum registro encontrado!"
@@ -24,14 +24,14 @@
                     <h:outputText value="#{item.id}"/>
                 </p:column>
 
-                <p:column headerText="Descriï¿½ï¿½o" sortBy="#{item.descricao}"
+                <p:column headerText="Descrição" sortBy="#{item.descricao}"
                           filterBy="#{item.descricao}">
                     <h:outputText value="#{item.descricao}"/>
                 </p:column>
 
-                <p:column headerText="Opï¿½ï¿½es">
+                <p:column headerText="Opções">
                     <p:commandButton icon="ui-icon-trash" actionListener="#{MBFornecedores.excluir}" update=":msgGlobal :frmfornecedores:tbfornecedores">
-                        <p:confirm header="Confirmaï¿½ï¿½o" message="Deseja excluir o fornecedor?" icon="ui-icon-alert"/>
+                        <p:confirm header="Confirmação" message="Deseja excluir o fornecedor?" icon="ui-icon-alert"/>
                         <f:attribute name="fornecedorSelecionado" value="#{item}"/>
                     </p:commandButton>
 
@@ -50,7 +50,7 @@
             </p:dataTable>
             <p:confirmDialog global="true" appendTo="@(body)">
                 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                <p:commandButton value="Nï¿½o" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
             </p:confirmDialog>
         </h:form>
 
@@ -62,7 +62,7 @@
 
             <h:form id="frmforNovo">
                 <h:panelGrid id="pnforNovo" columns="2">
-                    <p:outputLabel value="Descriï¿½ï¿½o:"/>
+                    <p:outputLabel value="Descrição:"/>
                     <h:inputText size="30" required="true" maxlength="50" value="#{MBFornecedores.fornecedor.descricao}"/>
                 </h:panelGrid>
                 <h:panelGrid columns="2">
@@ -82,9 +82,9 @@
 
             <h:form id="frmforEditar">
                 <h:panelGrid id="pnforEditar" columns="2">
-                    <h:outputText value="Cï¿½digo"/>
+                    <h:outputText value="Código"/>
                     <h:outputText value="#{MBFornecedores.fornecedor.id}"/>
-                    <h:outputText value="Descriï¿½ï¿½o"/>
+                    <h:outputText value="Descrição"/>
                     <h:inputText required="true" value="#{MBFornecedores.fornecedor.descricao}"/>
                 </h:panelGrid>
 
